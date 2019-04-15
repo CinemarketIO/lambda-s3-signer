@@ -12,6 +12,8 @@ aws ssm put-parameter --name s3SignerSecretAccessKey \
     --type String --value ommited
 aws ssm put-parameter --name s3SignerAccessKeyId \
     --type String --value ommited
+aws ssm put-parameter --name s3SignerBucket \
+    --type String --value ommited
 ```
 
 Once you've set this and are logged into `awscli`, you can deploy by:
