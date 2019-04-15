@@ -1,0 +1,23 @@
+{
+  "name": "aws-s3-signer",
+  "version": "0.0.1",
+  "description": "A server to presign S3 put uploads",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "s3",
+    "aws",
+    "signing",
+    "amazon",
+    "expressjs",
+    "nodejs",
+    "server"
+  ],
+  "author": "Tim Daubenschuetz",
+  "license": "MIT",
+  "dependencies": {
+    "aws-sdk": "^2.437.0"
+  }
+}
