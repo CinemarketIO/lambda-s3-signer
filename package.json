@@ -1,7 +1,7 @@
 {
-  "name": "aws-s3-signer",
+  "name": "lambda-s3-signer",
   "version": "0.0.1",
-  "description": "A server to presign S3 put uploads",
+  "description": "A serverless server to presign S3 put uploads",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -13,7 +13,7 @@
     "amazon",
     "expressjs",
     "nodejs",
-    "server"
+    "serverless"
   ],
   "author": "Tim Daubenschuetz",
   "license": "MIT",

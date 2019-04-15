@@ -3,7 +3,7 @@
 
 const AWS = require('aws-sdk');
 
-const bucket = 'cinemarket-videos';
+const method = 'putObject';
 const signedUrlExpireSeconds = 60 * 5;
 
 function response(statusCode, data) {
@@ -19,13 +19,17 @@ function response(statusCode, data) {
 module.exports.sign = async (event, context, callback) => {
   AWS.config.update({
     accessKeyId: process.env.S3_ACCESS_KEY_ID,
-    secretAccessKey: process.env.S3_SECRET_ACCESS_KEY
+    secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
   });
   const s3 = new AWS.S3();
 
   let body;
   if (event.body) {
-    body = JSON.parse(event.body);
+    try {
+      body = JSON.parse(event.body);
+    } catch (err) {
+      callback(response(400, {error: 'Wrong content-type or body'}));
+    }
   } else {
     callback(response(400, {error: 'No json body present'}));
   }
@@ -33,9 +37,9 @@ module.exports.sign = async (event, context, callback) => {
   // NOTE: s3.getSignedUrl doesn't support promises:
   // https://github.com/aws/aws-sdk-js/issues/1008
   s3.getSignedUrl(
-    'putObject',
+    method,
     {
-      Bucket: bucket,
+      Bucket: process.env.S3_BUCKET,
       Key: body.filename,
       Expires: signedUrlExpireSeconds,
     },
@@ -43,7 +47,7 @@ module.exports.sign = async (event, context, callback) => {
       if (error) {
         callback(response(500, {error: error.message}));
       } else {
-        callback(response(200, {url}));
+        callback(null, response(200, {method, url, fields: []}));
       }
     },
   );

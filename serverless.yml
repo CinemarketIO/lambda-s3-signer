@@ -20,10 +20,7 @@ service: s3-signer # NOTE: update this with your service name
 provider:
   name: aws
   runtime: nodejs8.10
-
-# you can overwrite defaults here
-#  stage: dev
-region: eu-central-1
+  region: eu-central-1
 
 # you can add statements to the Lambda function's IAM Role here
 #  iamRoleStatements:
@@ -57,9 +54,15 @@ region: eu-central-1
 functions:
   sign:
     handler: handler.sign
-  environment:
+    environment:
       S3_ACCESS_KEY_ID: ${ssm:s3SignerAccessKeyId}
       S3_SECRET_ACCESS_KEY: ${ssm:s3SignerSecretAccessKey}
+      S3_BUCKET: ${ssm:s3SignerBucket}
+    events:
+      - http:
+          path: sign
+          method: post
+          cors: true
 
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
