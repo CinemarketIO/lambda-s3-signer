@@ -5,7 +5,7 @@ This Lambda function signs S3 `putObject` requests for uploaders like Uppy.
 ## Installation
 
 Serverless uses AWS' Parameter store for secret environment variables. There's
-two parameters that need setting:
+three parameters that need setting:
 
 ```bash
 aws ssm put-parameter --name s3SignerSecretAccessKey \
