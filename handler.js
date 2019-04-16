@@ -12,6 +12,7 @@ function response(statusCode, data) {
     body: JSON.stringify(data),
     headers: {
       'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*',
     },
   };
 }
@@ -47,7 +48,7 @@ module.exports.sign = async (event, context, callback) => {
       if (error) {
         callback(response(500, {error: error.message}));
       } else {
-        callback(null, response(200, {method, url, fields: []}));
+        callback(null, response(200, {url}));
       }
     },
   );
